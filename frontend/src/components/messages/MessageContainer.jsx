@@ -4,31 +4,39 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../context/AuthContext";
-
+import Conversation from "../sidebar/Conversation";
+import { getRandomEmoji } from "../../utils/emojis";
 const MessageContainer = () => {
 	const { selectedConversation, setSelectedConversation } = useConversation();
 
-	useEffect(() => {
-		// cleanup function (unmounts)
-		return () => setSelectedConversation(null);
-	}, [setSelectedConversation]);
+	// useEffect(() => {
+		
+	// 	// cleanup function (unmounts)
+	// 	return () => setSelectedConversation(null);
+		
+		
+	// }, [setSelectedConversation]);
 
 	return (
-		<div className='md:min-w-[450px] flex flex-col'>
+		<div className='flex sm:h-[450px] h-3/4 md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
+			<div className='md:min-w-[450px]  flex flex-col'>
 			{!selectedConversation ? (
 				<NoChatSelected />
 			) : (
 				<>
 					{/* Header */}
-					<div className='bg-slate-500 px-4 py-2 mb-2'>
-						<span className='label-text'>To:</span>{" "}
-						<span className='text-gray-900 font-bold'>{selectedConversation.fullName}</span>
-					</div>
+					{/* <div className='bg-slate-500 px-4 py-2 mb-2'> */}
+						{/* <span className='label-text'>To:</span>{" "} */}
+						{/* <span className='text-gray-900 font-bold'>{selectedConversation.fullName}</span> */}
+						<Conversation conversation={selectedConversation} emoji={getRandomEmoji()} />
+					{/* </div> */}
 					<Messages />
 					<MessageInput />
 				</>
 			)}
 		</div>
+		</div>
+		
 	);
 };
 export default MessageContainer;
